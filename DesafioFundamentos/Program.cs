@@ -52,7 +52,7 @@ while (exibirMenu)
             break;
 
         case "2":
-            es.RemoverVeiculo();
+            es.RemoverVeiculo(precoInicial, precoPorHora);
             break;
 
         case "3":

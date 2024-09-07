@@ -1,3 +1,5 @@
+using System.Threading.Tasks.Dataflow;
+
 namespace DesafioFundamentos.Models
 {
     public class Estacionamento
@@ -32,13 +34,14 @@ namespace DesafioFundamentos.Models
             veiculos.Add(veiculo);
         }
 
-        public void RemoverVeiculo()
+        public void RemoverVeiculo(decimal valorInicial, decimal valorPorHora)
         {
             Console.WriteLine("Digite a placa do veículo para remover:");
 
             // Pedir para o usuário digitar a placa e armazenar na variável placa
             // *IMPLEMENTE AQUI*
             string placa = "";
+            placa = Console.ReadLine();
 
             // Verifica se o veículo existe
             if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
@@ -49,10 +52,28 @@ namespace DesafioFundamentos.Models
                 // TODO: Realizar o seguinte cálculo: "precoInicial + precoPorHora * horas" para a variável valorTotal                
                 // *IMPLEMENTE AQUI*
                 int horas = 0;
+                bool validacaoHoras;
                 decimal valorTotal = 0;
+
+                do{
+                    validacaoHoras = true;
+                    if(!int.TryParse(Console.ReadLine(), out horas)){
+                        Console.WriteLine("Hora inválida!\nDigite novamente!");
+                        validacaoHoras = false;
+                    }
+                }while(!validacaoHoras);
+
+                valorTotal = valorInicial + (horas * valorPorHora);
+
 
                 // TODO: Remover a placa digitada da lista de veículos
                 // *IMPLEMENTE AQUI*
+                foreach(string veiculo in veiculos){
+                    if(veiculo.ToUpper() == placa.ToUpper()){
+                        veiculos.Remove(veiculo);
+                        break;
+                    }
+                }
 
                 Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
             }
